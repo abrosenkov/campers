@@ -1,15 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import css from "./Header.module.css";
-import clsx from "clsx";
 import { usePathname } from "next/navigation";
+import clsx from "clsx";
+import css from "./Header.module.css";
+
+const NAV_LINKS = [
+  { name: "Home", href: "/" },
+  { name: "Catalog", href: "/catalog" },
+];
 
 export default function Header() {
   const pathname = usePathname();
-
-  const isHome = pathname === "/";
-  const isCatalog = pathname.startsWith("/catalog");
 
   return (
     <header className={css.header}>
@@ -19,26 +21,25 @@ export default function Header() {
             <use href="/sprite.svg#logo" />
           </svg>
         </Link>
+
         <nav className={css.menu} aria-label="Main Navigation">
           <ul className={css.navigation}>
-            <li>
-              <Link
-                className={clsx(css.link, isHome && css.active)}
-                href="/"
-                aria-label="Home"
-              >
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link
-                className={clsx(css.link, isCatalog && css.active)}
-                href="/catalog"
-                aria-label="Catalog"
-              >
-                Catalog
-              </Link>
-            </li>
+            {NAV_LINKS.map(({ name, href }) => {
+              const isActive =
+                href === "/" ? pathname === href : pathname.startsWith(href);
+
+              return (
+                <li key={href}>
+                  <Link
+                    href={href}
+                    className={clsx(css.link, isActive && css.active)}
+                    aria-current={isActive ? "page" : undefined}
+                  >
+                    {name}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
       </div>
