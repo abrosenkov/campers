@@ -1,3 +1,9 @@
-export default function CatalogPage() {
-  return <div>Catalog</div>;
+import CardList from "./CardList/CardList";
+
+export default function Catalog() {
+  return (
+    <div>
+      <CardList />
+    </div>
+  );
 }
