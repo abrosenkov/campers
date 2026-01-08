@@ -3,7 +3,7 @@
 import { useCamperStore } from "@/stores/useCamperStore";
 import { useEffect } from "react";
 import css from "./CardList.module.css";
-import CamperCard from "../VehicleCard/CamperCard";
+import CamperCard from "../CamperCard/CamperCard";
 
 export default function CardList() {
   const items = useCamperStore((state) => state.items);

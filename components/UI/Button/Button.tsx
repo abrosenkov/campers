@@ -8,7 +8,9 @@ interface ButtonProps {
   href?: string;
   onClick?: () => void;
   type?: "button" | "submit";
+  variant?: "primary" | "outline";
   className?: string;
+  disabled?: boolean;
 }
 
 export const Button = ({

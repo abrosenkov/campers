@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "../components/Header/Header";
 import TanStackProvider from "../components/TanStackProvider/TanStackProvider";
 import { Inter } from "next/font/google";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -44,6 +45,7 @@ export default function RootLayout({
         <TanStackProvider>
           <Header />
           {children}
+          <Toaster position="top-right" reverseOrder={false} />
         </TanStackProvider>
       </body>
     </html>

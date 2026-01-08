@@ -6,14 +6,60 @@ import { Badge } from "@/components/UI/Badge/Badge";
 import { CAMPER_FEATURES } from "@/lib/constants";
 import { useCamperStore } from "@/stores/useCamperStore";
 import clsx from "clsx";
+import toast from "react-hot-toast";
 
 type CamperCardProps = {
   camper: Camper;
 };
 
 export default function CamperCard({ camper }: CamperCardProps) {
+  // Get favorite state and toggle function from global store
   const { favorites, toggleFavorite } = useCamperStore();
   const isFavorite = favorites.includes(camper.id);
+
+  // Handle favorite button click with toast notifications
+  const handleFavoriteClick = () => {
+    toggleFavorite(camper.id);
+
+    if (!isFavorite) {
+      toast.success(
+        <span>
+          <b>{camper.name}</b> added to favorites
+        </span>,
+        {
+          duration: 2500,
+          style: {
+            border: "1px solid #101828",
+            padding: "16px",
+            color: "#101828",
+            borderRadius: "12px",
+            fontSize: "16px",
+          },
+          iconTheme: {
+            primary: "#E44848",
+            secondary: "#fff",
+          },
+        }
+      );
+    } else {
+      toast(
+        <span>
+          <b>{camper.name}</b> removed from favorites
+        </span>,
+        {
+          icon: "🗑️",
+          duration: 2500,
+          style: {
+            border: "1px solid #dadde1",
+            padding: "16px",
+            color: "#475467",
+            borderRadius: "12px",
+            fontSize: "16px",
+          },
+        }
+      );
+    }
+  };
 
   return (
     <li className={css.card}>
@@ -35,7 +81,7 @@ export default function CamperCard({ camper }: CamperCardProps) {
             <button
               className={clsx(css.heartBtn, isFavorite ? css.iconActive : "")}
               type="button"
-              onClick={() => toggleFavorite(camper.id)}
+              onClick={handleFavoriteClick}
               aria-label={
                 isFavorite ? "Remove from favorites" : "Add to favorites"
               }

@@ -3,8 +3,8 @@ import { Camper } from "@/types";
 export const CAMPER_FEATURES: { id: keyof Camper; icon: string; label?: string }[] = [
   { id: 'transmission', icon: 'automatic' },
   { id: 'engine', icon: 'fuel' },
-  { id: 'AC', icon: 'ac', label: 'AC' },
   { id: 'kitchen', icon: 'kitchen', label: 'Kitchen' },
+  { id: 'AC', icon: 'ac', label: 'AC' },
   { id: 'bathroom', icon: 'bathroom', label: 'Bathroom' },
   { id: 'TV', icon: 'tv', label: 'TV' },
   { id: 'radio', icon: 'radio', label: 'Radio' },

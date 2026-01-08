@@ -1,0 +1,19 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+}
+
+.pagination .loadMoreBtn {
+    max-width: 145px;
+    border: 1px solid #dadde1;
+    background-color: transparent;
+    color: #101828;
+    transition: border-color 250ms ease-in-out;
+}
+
+.pagination .loadMoreBtn:hover,
+.pagination .loadMoreBtn:focus {
+    border-color: #d84343;
+    background-color: transparent;
+
+}
