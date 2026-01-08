@@ -33,13 +33,17 @@ export default function CamperCard({ camper }: CamperCardProps) {
 
         <div className={css.meta}>
           <div className={css.rating}>
-            {/* <Icon id="star" className={css.starIcon} width={16} height={16} /> */}
+            <svg width={16} height={16} className={css.icon}>
+              <use href="/sprite.svg#star-full" />
+            </svg>
             <span>
               {camper.rating} ({camper.reviews.length} Reviews)
             </span>
           </div>
           <div className={css.location}>
-            {/* <Icon id="map" width={16} height={16} /> */}
+            <svg width={20} height={20} className={css.icon}>
+              <use href="/sprite.svg#map" />
+            </svg>
             <span>{camper.location}</span>
           </div>
         </div>
@@ -49,24 +53,38 @@ export default function CamperCard({ camper }: CamperCardProps) {
         <div className={css.badges}>
           <div className={css.badge}>
             <svg width={20} height={20} className={css.icon}>
-              <use href="sprite.svg#automatic" />
+              <use href="/sprite.svg#automatic" />
             </svg>
             <span>{camper.transmission}</span>
           </div>
           <div className={css.badge}>
-            {/* <Icon id="fuel" width={20} height={20} /> */}
+            <svg width={20} height={20} className={css.icon}>
+              <use href="/sprite.svg#icon-fuel" />
+            </svg>
             <span>{camper.engine}</span>
           </div>
           {camper.AC && (
             <div className={css.badge}>
-              {/* <Icon id="ac" width={20} height={20} /> */}
+              <svg width={20} height={20} className={css.icon}>
+                <use href="/sprite.svg#ac" />
+              </svg>
               <span>AC</span>
             </div>
           )}
           {camper.kitchen && (
             <div className={css.badge}>
-              {/* <Icon id="kitchen" width={20} height={20} /> */}
+              <svg width={20} height={20} className={css.icon}>
+                <use href="/sprite.svg#kitchen" />
+              </svg>
               <span>Kitchen</span>
+            </div>
+          )}
+          {camper.TV && (
+            <div className={css.badge}>
+              <svg width={20} height={20} className={css.icon}>
+                <use href="/sprite.svg#radios" />
+              </svg>
+              <span>Radio</span>
             </div>
           )}
         </div>

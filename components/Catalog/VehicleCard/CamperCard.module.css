@@ -122,7 +122,10 @@
 }
 
 .icon {
-  fill: #101828; /* Темный цвет из макета */
-  display: inline-block;
-  flex-shrink: 0; /* Чтобы иконку не сплющило во флекс-контейнере */
+  display: block;
+  width: 20px;
+  height: 20px;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
 }
