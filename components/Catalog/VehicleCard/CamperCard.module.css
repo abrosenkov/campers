@@ -100,32 +100,18 @@
   flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 24px;
-  max-height: 44px;
+  max-height: 100px;
   overflow: hidden;
 }
 
-.badge {
-  color: #101828;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 18px;
-  background-color: #f2f4f7;
-  border-radius: 100px;
-  font-size: 16px;
-  text-transform: capitalize;
-}
 
 .info .button {
   padding: 16px 40px;
   margin-top: auto;
+  align-self: flex-start;
+  width: auto;
 }
 
-.icon {
-  display: block;
-  width: 20px;
-  height: 20px;
-  stroke-width: 0;
-  stroke: currentColor;
-  fill: currentColor;
+.iconActive {
+  fill: #e44848;
 }
