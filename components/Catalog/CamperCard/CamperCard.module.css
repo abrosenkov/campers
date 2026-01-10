@@ -65,6 +65,13 @@
   padding: 0;
   display: flex;
   align-items: center;
+  outline: none;
+  transition: scale 0.2s ease;
+}
+
+.heartBtn:hover, .heartBtn:focus {
+  scale: 0.95;
+
 }
 
 .meta {
@@ -104,7 +111,6 @@
   flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 24px;
-  max-height: 106px;
   overflow: hidden;
 }
 
@@ -119,3 +125,4 @@
 .iconActive {
   fill: #e44848;
 }
+

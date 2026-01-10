@@ -67,8 +67,8 @@ export default function CamperCard({ camper }: CamperCardProps) {
         <Image
           src={camper.gallery[0]?.thumb}
           alt={camper.name}
-          fill
-          sizes="290px"
+          width={292}
+          height={320}
           className={css.image}
         />
       </div>

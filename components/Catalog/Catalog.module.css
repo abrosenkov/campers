@@ -17,3 +17,16 @@
     background-color: transparent;
 
 }
+
+.spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.empty {
+    text-align: center;
+    font-size: 20px;
+    color: #d84343;
+
+}

@@ -3,16 +3,35 @@ import { persist } from "zustand/middleware";
 import api from "@/lib/api";
 import { Camper } from "@/types";
 
+export type Filters = {
+  location?: string;
+  form?: string;
+  transmission?: string;
+  AC?: boolean;
+  bathroom?: boolean;
+  kitchen?: boolean;
+  TV?: boolean;
+  radio?: boolean;
+  refrigerator?: boolean;
+  microwave?: boolean;
+  gas?: boolean;
+  water?: boolean;
+};
+
 type CamperStore = {
   items: Camper[];
   total: number;
   page: number;
+  limit: number;
   isLoading: boolean;
   error: string | null;
+  activeFilters: Filters;
   favorites: string[];
-  fetchCampers: (filters?: object, isNewSearch?: boolean) => Promise<void>;
   toggleFavorite: (id: string) => void;
-  resetItems: () => void;
+  isFavorite: (id: string) => boolean;
+  fetchCampers: (filters: Filters) => Promise<void>;
+  loadMore: () => Promise<void>;
+  reset: () => void;
 };
 
 export const useCamperStore = create<CamperStore>()(
@@ -21,58 +40,69 @@ export const useCamperStore = create<CamperStore>()(
       items: [],
       total: 0,
       page: 1,
+      limit: 4,
       isLoading: false,
       error: null,
+      activeFilters: {},
       favorites: [],
 
-      // Fetch campers with support for pagination and filtering
-      fetchCampers: async (filters = {}, isNewSearch = false) => {
-        set({ isLoading: true, error: null });
-
-        // Reset to page 1 if it's a new search/filter application
-        const currentPage = isNewSearch ? 1 : get().page;
-
-        try {
-          const response = await api.get("/campers", {
-            params: {
-              page: currentPage,
-              limit: 4,
-              ...filters,
-            },
-          });
-
-          const { total, items } = response.data;
-
-          set((state) => ({
-            items: isNewSearch ? items : [...state.items, ...items],
-            total: total,
-            page: isNewSearch ? 2 : currentPage + 1,
-
-            isLoading: false,
-          }));
-        } catch (error: unknown) {
-          let errorMessage = "An unknown error occurred";
-
-          if (error instanceof Error) {
-            errorMessage = error.message;
-          }
-
-          set({ isLoading: false, error: errorMessage });
-        }
-      },
-
-      // Toggle camper ID in the favorites list
       toggleFavorite: (id) =>
         set((state) => ({
           favorites: state.favorites.includes(id)
-            ? state.favorites.filter((favId) => favId !== id)
+            ? state.favorites.filter((fav) => fav !== id)
             : [...state.favorites, id],
         })),
-      // Reset store state to initial
-      resetItems: () => set({ items: [], page: 1, total: 0, error: null }),
+
+      isFavorite: (id) => get().favorites.includes(id),
+
+fetchCampers: async (filters) => {
+  set({ isLoading: true, error: null, items: [], page: 1, activeFilters: filters ?? {} });
+
+  try {
+    const { data } = await api.get("/campers", {
+      params: { page: 1, limit: get().limit, ...(filters ?? {}) },
+    });
+
+    const newItems = data.items || (Array.isArray(data) ? data : []);
+    const totalCount = data.total || (Array.isArray(data) ? data.length : 0);
+
+    set({
+      items: newItems,
+      total: totalCount,
+      page: 2,
+      isLoading: false,
+    });
+  } catch (error) {
+    set({ isLoading: false, items: [], error: "No campers found" });
+  }
+},
+
+      loadMore: async () => {
+  const { isLoading, page, limit, activeFilters, items, total } = get();
+  if (isLoading || (total > 0 && items.length >= total)) return;
+
+  try {
+    set({ isLoading: true });
+    const { data } = await api.get("/campers", {
+      params: { page, limit, ...activeFilters },
+    });
+
+    const addedItems = data.items || (Array.isArray(data) ? data : []);
+
+    set((state) => ({
+      items: [...state.items, ...addedItems],
+      page: state.page + 1,
+      isLoading: false,
+    }));
+  } catch {
+    set({ isLoading: false });
+  }
+},
+
+    reset: () => set({ items: [], total: 0, page: 1, activeFilters: {}, error: null }),
     }),
     {
-      name: "camper-favorites",
+      name: "traveltrucks-store",
       partialize: (state) => ({ favorites: state.favorites }),
     }
   )
