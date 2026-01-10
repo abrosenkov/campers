@@ -1,3 +1,4 @@
+
 export interface Camper {
   id: string;
   name: string;
@@ -5,8 +6,13 @@ export interface Camper {
   rating: number;
   location: string;
   description: string;
-  form: string;
-  transmission: string;
+  form: "panelTruck" | "fullyIntegrated" | "alcove";
+  length: string;
+  width: string;
+  height: string;
+  tank: string;
+  consumption: string;
+  transmission: "automatic" | "manual";
   engine: string;
   AC: boolean;
   bathroom: boolean;
@@ -17,8 +23,15 @@ export interface Camper {
   microwave: boolean;
   gas: boolean;
   water: boolean;
-  gallery: { thumb: string; original: string }[];
-  reviews: { reviewer_name: string; reviewer_rating: number; comment: string }[];
+  gallery: {
+    thumb: string;
+    original: string;
+  }[];
+  reviews: {
+    reviewer_name: string;
+    reviewer_rating: number;
+    comment: string;
+  }[];
 }
 
 export type FiltersState = {
@@ -62,4 +75,9 @@ export type BooleanFilterKeys =
   | "microwave"
   | "gas"
   | "water";
-  
+
+export interface CampersMock {
+  total: number;
+  items: Camper[];
+  toJSON(): string;
+}

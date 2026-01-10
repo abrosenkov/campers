@@ -21,8 +21,8 @@ export default function CardList() {
 
   return (
     <ul className={css.list}>
-      {items.map((camper, index) => (
-        <CamperCard key={`${camper.id}-${index}`} camper={camper} />
+      {items.map((camper) => (
+        <CamperCard key={camper.id} camper={camper} />
       ))}
     </ul>
   );

@@ -1,14 +1,69 @@
-.sidebar {
+.form {
   display: flex;
   flex-direction: column;
   width: 360px;
   gap: 32px;
 }
 
-.filterGroup {
+.LocationSection {
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+.locationLabel {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #6c717b;
+}
+
+.locationInput {
+  width: 100%;
+  padding: 18px 20px 18px 48px;
+  background-color: #F7F7F7;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #101828;
+  outline: none;
+  height: 56px;
+}
+
+.locationInput::placeholder {
+  color: #6c717b;
+}
+
+.locationInput:focus {
+  color: #101828;
+}
+
+.FilterSection {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 112px;
+  height: 95px;
+  border: 1px solid rgba(16, 24, 40, 0.2);
+  border-radius: 12px;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  gap: 8px;
+  user-select: none; 
+}
+
+.itemActive {
+  border-color: #E44848;
 }
 
 .label {
@@ -25,47 +80,58 @@
 
 .inputIcon {
   position: absolute;
-  left: 18px;
+  left: 20px;
+  fill: #6c717b;
+  transition: fill 250ms ease-in-out;
+  pointer-events: none;
+}
+
+.inputWrapper:focus-within .inputIcon {
   fill: #101828;
 }
 
-.input {
-  width: 100%;
-  padding: 18px 18px 18px 48px;
-  background-color: #F7F7F7;
-  border: none;
-  border-radius: 12px;
-  outline: none;
-}
 
 .filterTitle {
-  color: #475467;
   font-weight: 500;
-  margin-bottom: 14px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #475467;
 }
 
-.section {
+.FilterGroup {
   display: flex;
   flex-direction: column;
+  gap: 24px;
 }
 
-.sectionHeader {
+.groupTitle {
   font-size: 20px;
   font-weight: 600;
   color: #101828;
-  margin-bottom: 24px;
 }
 
-.divider {
+.line {
   border: none;
-  border-top: 1px solid rgba(16, 24, 40, 0.1);
-  margin-bottom: 24px;
+  border-top: 1px solid #dadde1;
 }
 
 .categoriesGrid {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px 8px;
+  gap: 8px 12px;
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
 }
 
 .item {
@@ -75,27 +141,38 @@
   justify-content: center;
   width: 112px;
   height: 95px;
-  border: 1px solid rgba(16, 24, 40, 0.2);
+  border: 1px solid #dadde1;
   border-radius: 12px;
   background: transparent;
   cursor: pointer;
   transition: border-color 0.3s ease;
   gap: 8px;
+  text-align: center;
+  transition: border-color 250ms ease-in-out;
 }
 
 .item span {
   font-weight: 500;
   font-size: 16px;
-  line-height: 1.25;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  color: #101828;
 }
 
+.item:hover, .item:focus {
+  border-color: #e44848;
+}
+
+/* .item:focus-within {
+  border-color: #101828;
+} */
+
+
 .itemActive {
-  composes: item;
-  border-color: #E44848;
+  border-color: #e44848;
 }
 
 .searchBtn {
-  margin-top: 32px;
   padding: 16px 60px;
   align-self: flex-start;
 }

@@ -75,7 +75,7 @@ fetchCampers: async (filters) => {
   } catch (error) {
     set({ isLoading: false, items: [], error: "No campers found" });
   }
-},
+      },
 
       loadMore: async () => {
   const { isLoading, page, limit, activeFilters, items, total } = get();

@@ -6,26 +6,34 @@ import { useCamperStore, Filters } from "@/stores/useCamperStore";
 import { Button } from "@/components/UI/Button/Button";
 import { BooleanFilterKeys } from "@/types";
 import { SIDEBAR_FEATURES, TYPE_CONFIG } from "@/lib/constants";
+import clsx from "clsx";
 
 export default function Sidebar() {
   const { fetchCampers, isLoading } = useCamperStore();
 
   const [location, setLocation] = useState("");
-  const [form, setForm] = useState("");
+  const [formType, setFormType] = useState("");
   const [equipment, setEquipment] = useState<Record<string, boolean>>({
     AC: false,
     transmission: false,
     kitchen: false,
     TV: false,
     bathroom: false,
+    radio: false,
+    refrigerator: false,
+    microwave: false,
+    gas: false,
+    water: false,
   });
 
-  const onSearch = () => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     const apiFilters: Filters = {};
     const normalizedLocation = location.trim();
 
     if (normalizedLocation) apiFilters.location = normalizedLocation;
-    if (form) apiFilters.form = form;
+    if (formType) apiFilters.form = formType;
 
     Object.entries(equipment).forEach(([key, value]) => {
       if (!value) return;
@@ -46,75 +54,101 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className={css.sidebar}>
-      <div className={css.group}>
-        <label className={css.label}>Location</label>
+    <form className={css.form} onSubmit={handleSubmit}>
+      <div className={css.LocationSection}>
+        <label htmlFor="location" className={css.locationLabel}>
+          Location
+        </label>
         <div className={css.inputWrapper}>
           <svg className={css.inputIcon} width={20} height={20}>
             <use href="/sprite.svg#map" />
           </svg>
           <input
+            id="location"
             type="text"
-            placeholder="City, Country"
-            className={css.input}
+            placeholder="City"
+            className={css.locationInput}
             value={location}
             onChange={(e) => setLocation(e.target.value)}
           />
         </div>
       </div>
 
-      <p className={css.filterTitle}>Filters</p>
+      <div className={css.FilterSection}>
+        <p className={css.filterTitle}>Filters</p>
 
-      <div className={css.section}>
-        <h3 className={css.sectionHeader}>Vehicle equipment</h3>
-        <hr className={css.divider} />
-        <div className={css.categoriesGrid}>
-          {SIDEBAR_FEATURES.map((item) => (
-            <button
-              key={item.id}
-              type="button"
-              className={equipment[item.id] ? css.itemActive : css.item}
-              onClick={() =>
-                setEquipment((prev) => ({
-                  ...prev,
-                  [item.id]: !prev[item.id],
-                }))
-              }
-            >
-              <svg width={32} height={32}>
-                <use href={`/sprite.svg#${item.icon}`} />
-              </svg>
-              <span>{item.label}</span>
-            </button>
-          ))}
+        <div className={css.FilterGroup}>
+          <h3 className={css.groupTitle}>Vehicle equipment</h3>
+          <hr className={css.line} />
+          <div className={css.categoriesGrid}>
+            {SIDEBAR_FEATURES.map((item) => (
+              <label
+                key={item.id}
+                className={clsx(
+                  css.item,
+                  equipment[item.id] ? css.itemActive : ""
+                )}
+              >
+                <input
+                  type="checkbox"
+                  className={css.visuallyHidden}
+                  checked={equipment[item.id]}
+                  onChange={() =>
+                    setEquipment((prev) => ({
+                      ...prev,
+                      [item.id]: !prev[item.id],
+                    }))
+                  }
+                />
+                <svg width={32} height={32}>
+                  <use href={`/sprite.svg#${item.icon}`} />
+                </svg>
+                <span>{item.label}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <div className={css.FilterGroup}>
+          <h3 className={css.groupTitle}>Vehicle type</h3>
+          <hr className={css.line} />
+          <div className={css.categoriesGrid}>
+            {TYPE_CONFIG.map((type) => (
+              <label
+                key={type.id}
+                className={clsx(
+                  css.item,
+                  formType === type.id ? css.itemActive : ""
+                )}
+              >
+                <input
+                  type="radio"
+                  name="vehicleType"
+                  className={css.visuallyHidden}
+                  checked={formType === type.id}
+                  onClick={() => {
+                    setFormType((prev) => (prev === type.id ? "" : type.id));
+                  }}
+                  onChange={() => {}}
+                />
+                <svg width={32} height={32}>
+                  <use href={`/sprite.svg#${type.icon}`} />
+                </svg>
+                <span>{type.label}</span>
+              </label>
+            ))}
+          </div>
         </div>
       </div>
 
-      <div className={css.section}>
-        <h3 className={css.sectionHeader}>Vehicle type</h3>
-        <hr className={css.divider} />
-        <div className={css.categoriesGrid}>
-          {TYPE_CONFIG.map((type) => (
-            <button
-              key={type.id}
-              type="button"
-              className={form === type.id ? css.itemActive : css.item}
-              onClick={() =>
-                setForm((prev) => (prev === type.id ? "" : type.id))
-              }
-            >
-              <svg width={32} height={32}>
-                <use href={`/sprite.svg#${type.icon}`} />
-              </svg>
-              <span>{type.label}</span>
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <Button className={css.searchBtn} onClick={onSearch} disabled={isLoading}>
+      <Button
+        aria-label="Search"
+        className={css.searchBtn}
+        type="submit"
+        disabled={isLoading}
+      >
         Search
       </Button>
-    </aside>
+    </form>
   );
 }

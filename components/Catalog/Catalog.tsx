@@ -29,11 +29,7 @@ export default function Catalog() {
     <div className={css.catalogWrapper}>
       {(isLoading && items.length === 0) ||
       (isFirstLoad && items.length === 0) ? (
-        <div className={css.centerLoader}>
-          <div className={css.spinner}>
-            <Loader />
-          </div>
-        </div>
+        <Loader />
       ) : (
         <>
           {items.length > 0 ? (
