@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: "Page not found",
     description:
       "Page not found. Return to TravelTrucks and keep your notes organized.",
-    url: "https://traveltrucks.example.com/not-found",
+    url: "https://campers-el18.vercel.app/not-found",
     images: [
       {
         url: "/og-image.png",

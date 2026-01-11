@@ -1,7 +1,6 @@
 import { Camper, CampersQuery, CampersResponse } from "@/types";
 import api from "./api";
 
-
 export const getCampers = async (
   params: CampersQuery = {}
 ): Promise<CampersResponse> => {

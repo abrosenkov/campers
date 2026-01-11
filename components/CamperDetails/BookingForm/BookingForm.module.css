@@ -1,0 +1,131 @@
+.formWrapper {
+  padding: 44px 57px;
+  border-radius: 10px;
+  border: 1px solid #dadde1;
+  background: #fff;
+  width: 100%;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.2;
+  color: #101828;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #6c717b;
+  margin-bottom: 24px;
+}
+
+.inputsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 18px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  background-color: #f7f7f7;
+  font-size: 14px;
+  outline: none;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #101828;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: #6c717b;
+}
+
+.input {
+  height: 60px;
+}
+
+.textarea {
+  min-height: 118px;
+  resize: none;
+}
+
+.error {
+  border: 1px solid #e44848;
+}
+
+.errorText {
+  font-size: 12px;
+  color: #e44848;
+}
+
+.submitWrap {
+  display: flex;
+  justify-content: center;
+}
+
+.submitWrap .submit {
+  max-width: 166px;
+}
+
+.submitWrap .submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* calendar styles */
+
+.datePickerContainer {
+  width: 100%;
+}
+
+.datePickerContainer :global(.react-datepicker-wrapper) {
+  width: 100%;
+}
+
+.calendar {
+  font-family: inherit;
+  border: 1px solid #10182833 !important;
+  border-radius: 12px !important;
+  padding: 10px;
+}
+
+.calendar :global(.react-datepicker__header) {
+  background-color: #fff !important;
+  border-bottom: 1px solid #1018281a !important;
+}
+
+.calendar :global(.react-datepicker__day--selected) {
+  background-color: #101828 !important;
+  color: #fff !important;
+  border-radius: 50% !important;
+}
+
+.calendar :global(.react-datepicker__day:hover) {
+  border-radius: 50% !important;
+}
+
+.calendar :global(.react-datepicker__day--today) {
+  font-weight: bold;
+  color: #e44848;
+}
