@@ -1,4 +1,3 @@
-
 export interface Camper {
   id: string;
   name: string;
@@ -38,7 +37,6 @@ export type FiltersState = {
   location: string;
   form: string;
   transmission: boolean;
-
   AC: boolean;
   bathroom: boolean;
   kitchen: boolean;
@@ -76,8 +74,34 @@ export type BooleanFilterKeys =
   | "gas"
   | "water";
 
-export interface CampersMock {
+export interface CampersResponse {
   total: number;
   items: Camper[];
-  toJSON(): string;
 }
+export interface CamperGalleryItem {
+  thumb: string;
+  original: string;
+}
+
+export interface CamperReview {
+  reviewer_name: string;
+  reviewer_rating: number;
+  comment: string;
+}
+
+export type CampersQuery = {
+  page?: number;
+  limit?: number;
+  location?: string;
+  form?: "panelTruck" | "fullyIntegrated" | "alcove";
+  transmission?: "automatic" | "manual";
+  AC?: boolean;
+  bathroom?: boolean;
+  kitchen?: boolean;
+  TV?: boolean;
+  radio?: boolean;
+  refrigerator?: boolean;
+  microwave?: boolean;
+  gas?: boolean;
+  water?: boolean;
+};

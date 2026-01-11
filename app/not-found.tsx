@@ -1,6 +1,7 @@
 import React from "react";
 import css from "./page.module.css";
 import { Metadata } from "next";
+import { Button } from "@/components/UI/Button/Button";
 
 export const metadata: Metadata = {
   title: "Page not found",
@@ -24,11 +25,22 @@ export const metadata: Metadata = {
 
 export default function notFound() {
   return (
-    <>
-      <h1 className={css.title}>404 - Page not found</h1>
-      <p className={css.description}>
-        Sorry, the page you are looking for does not exist.
-      </p>
-    </>
+    <div className={css.wrapper}>
+      <div className="container">
+        <div className={css.content}>
+          <h1 className={css.titleNotFound}>404</h1>
+          <h2 className={css.subtitleNotFound}>Lost in the wilderness?</h2>
+          <p className={css.descriptionNotFound}>
+            The campervan you are searching for might have started its journey
+            already or the link is simply broken. Don&apos;t let this stop your
+            adventure!
+          </p>
+
+          <Button href="/catalog" className={css.backBtn}>
+            Return to Catalog
+          </Button>
+        </div>
+      </div>
+    </div>
   );
 }

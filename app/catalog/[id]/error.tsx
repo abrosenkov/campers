@@ -1,9 +1,6 @@
 "use client";
+import css from "./page.module.css"
 
-interface ErrorProps {
-  error: Error;
-}
-
-export default function Error({ error }: ErrorProps) {
-  return <p>Could not fetch camper details. {error.message}</p>;
+export default function Error() {
+  return <p className={css.error}>Could not fetch camper details.</p>;
 }

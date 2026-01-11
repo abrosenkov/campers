@@ -2,18 +2,22 @@
 
 import { useState } from "react";
 import css from "./Sidebar.module.css";
-import { useCamperStore, Filters } from "@/stores/useCamperStore";
+import { useCamperStore } from "@/stores/useCamperStore";
 import { Button } from "@/components/UI/Button/Button";
-import { BooleanFilterKeys } from "@/types";
+
+import { BooleanFilterKeys, CampersQuery } from "@/types";
 import { SIDEBAR_FEATURES, TYPE_CONFIG } from "@/lib/constants";
 import clsx from "clsx";
+
+type EquipmentState = Record<BooleanFilterKeys | "transmission", boolean>;
+type VehicleForm = "panelTruck" | "fullyIntegrated" | "alcove" | "";
 
 export default function Sidebar() {
   const { fetchCampers, isLoading } = useCamperStore();
 
   const [location, setLocation] = useState("");
-  const [formType, setFormType] = useState("");
-  const [equipment, setEquipment] = useState<Record<string, boolean>>({
+  const [formType, setFormType] = useState<VehicleForm>("");
+  const [equipment, setEquipment] = useState<EquipmentState>({
     AC: false,
     transmission: false,
     kitchen: false,
@@ -29,11 +33,12 @@ export default function Sidebar() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const apiFilters: Filters = {};
+    const apiFilters: CampersQuery = {};
     const normalizedLocation = location.trim();
 
     if (normalizedLocation) apiFilters.location = normalizedLocation;
-    if (formType) apiFilters.form = formType;
+    if (formType)
+      apiFilters.form = formType as "panelTruck" | "fullyIntegrated" | "alcove";
 
     Object.entries(equipment).forEach(([key, value]) => {
       if (!value) return;
@@ -86,17 +91,19 @@ export default function Sidebar() {
                 key={item.id}
                 className={clsx(
                   css.item,
-                  equipment[item.id] ? css.itemActive : ""
+                  equipment[item.id as keyof EquipmentState]
+                    ? css.itemActive
+                    : ""
                 )}
               >
                 <input
                   type="checkbox"
                   className={css.visuallyHidden}
-                  checked={equipment[item.id]}
+                  checked={equipment[item.id as keyof EquipmentState]}
                   onChange={() =>
                     setEquipment((prev) => ({
                       ...prev,
-                      [item.id]: !prev[item.id],
+                      [item.id]: !prev[item.id as keyof EquipmentState],
                     }))
                   }
                 />
@@ -126,8 +133,9 @@ export default function Sidebar() {
                   name="vehicleType"
                   className={css.visuallyHidden}
                   checked={formType === type.id}
-                  onClick={() => {
-                    setFormType((prev) => (prev === type.id ? "" : type.id));
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setFormType((prev) => (prev === type.id ? "" : (type.id as VehicleForm)));
                   }}
                   onChange={() => {}}
                 />
