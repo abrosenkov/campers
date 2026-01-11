@@ -1,3 +1,5 @@
+import { DETAILS_KEYS } from "@/lib/constants";
+
 export interface Camper {
   id: string;
   name: string;

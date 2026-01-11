@@ -2,9 +2,9 @@ import { Camper } from "@/types";
 
 export const CAMPER_FEATURES: { id: keyof Camper; icon: string; label?: string }[] = [
   { id: 'transmission', icon: 'automatic' },
+  { id: 'AC', icon: 'ac', label: 'AC' },
   { id: 'engine', icon: 'fuel' },
   { id: 'kitchen', icon: 'kitchen', label: 'Kitchen' },
-  { id: 'AC', icon: 'ac', label: 'AC' },
   { id: 'bathroom', icon: 'bathroom', label: 'Bathroom' },
   { id: 'TV', icon: 'tv', label: 'TV' },
   { id: 'radio', icon: 'radio', label: 'Radio' },
@@ -32,3 +32,14 @@ export const TYPE_CONFIG = [
   { id: "fullyIntegrated", label: "Fully Integrated", icon: "fully-integrated" },
   { id: "alcove", label: "Alcove", icon: "alcove" },
 ];
+
+export const DETAILS_KEYS = ["form", "length", "width", "height", "tank", "consumption"] as const;
+
+export const DETAILS_LABELS = {
+  form: "Form",
+  length: "Length",
+  width: "Width",
+  height: "Height",
+  tank: "Tank",
+  consumption: "Consumption",
+};

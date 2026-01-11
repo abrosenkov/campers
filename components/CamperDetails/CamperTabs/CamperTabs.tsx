@@ -6,6 +6,7 @@ import css from "./CamperTabs.module.css";
 import clsx from "clsx";
 import { FeaturesList } from "../FeaturesList/FeaturesList";
 import { ReviewsList } from "../ReviewsList/ReviewsList ";
+import BookingForm from "../BookingForm/BookingForm";
 
 interface camperTabsProps {
   camper: Camper;
@@ -36,12 +37,17 @@ export default function CamperTabs({ camper }: camperTabsProps) {
           Reviews
         </button>
       </div>
-      <div className={css.tabContent}>
-        {tab === "features" ? (
-          <FeaturesList camper={camper} />
-        ) : (
-          <ReviewsList reviews={camper.reviews} />
-        )}
+      <div className={css.contentWrapper}>
+        <div className={css.tabContent}>
+          {tab === "features" ? (
+            <FeaturesList camper={camper} />
+          ) : (
+            <ReviewsList reviews={camper.reviews} />
+          )}
+        </div>
+        <div className={css.booking}>
+          <BookingForm />
+        </div>
       </div>
     </section>
   );

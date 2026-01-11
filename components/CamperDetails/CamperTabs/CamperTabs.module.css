@@ -35,3 +35,18 @@
 .tabBtn:hover {
     color:  #e44848;
 }
+
+.contentWrapper {
+    display: flex;
+    flex-direction: wrap;
+    gap: 40px;
+}
+
+.tabContent {
+    max-width: 631px;
+    flex: 1;
+}
+
+.booking {
+    min-width: 641px;
+}
