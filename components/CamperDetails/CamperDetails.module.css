@@ -60,6 +60,7 @@
 }
 
 .itemImg {
+  position: relative;
   display: flex;
   flex: 0 0 292px;
   height: 312px;

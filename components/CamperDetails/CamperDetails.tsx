@@ -40,8 +40,7 @@ export default function CamperDetails({ camper }: CamperDetailsProps) {
             <Image
               src={item.thumb}
               alt={camper.name}
-              width={292}
-              height={312}
+              fill
               className={css.image}
             />
           </li>
