@@ -25,8 +25,7 @@ export default function Header() {
         <nav className={css.menu} aria-label="Main Navigation">
           <ul className={css.navigation}>
             {NAV_LINKS.map(({ name, href }) => {
-              const isActive =
-                href === "/" ? pathname === href : pathname.startsWith(href);
+              const isActive = pathname === href;
 
               return (
                 <li key={href}>

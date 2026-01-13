@@ -29,6 +29,7 @@ export function FeaturesList({ camper }: FeaturesListProps) {
         <ul className={css.detailsList}>
           {DETAILS_KEYS.map((key) => {
             const value = camper[key as keyof Camper];
+
             if (!value) return null;
             return (
               <li key={key} className={css.detailItem}>
