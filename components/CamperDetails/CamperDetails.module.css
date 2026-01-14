@@ -83,3 +83,12 @@
   color: #475467;
   margin-bottom: 60px;
 }
+
+
+:global(.yarl__container) {
+  background-color: rgba(17, 18, 19, 0.9) !important;
+}
+
+:global(.yarl__container) {
+  backdrop-filter: blur(4px);
+}
