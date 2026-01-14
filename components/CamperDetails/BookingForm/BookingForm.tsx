@@ -15,17 +15,19 @@ export const BookingFormSchema = Yup.object({
     .max(40, "Name is too long")
     .required("Name is required"),
   email: Yup.string().email("Invalid email").required("Email is required"),
-  date: Yup.string().required("Booking date is required"),
+  startDate: Yup.date().nullable().required("Start date is required"),
+  endDate: Yup.date().nullable().required("End date is required"),
   comment: Yup.string().max(500, "Comment is too long"),
 });
 
 export default function BookingForm() {
   const { draft, setDraft, clearDraft } = useBookingStore();
-  const [errors, setErrors] = useState<
-    Partial<Record<keyof BookingDraft, string>>
-  >({});
+  const [errors, setErrors] = useState<Partial<Record<string, string>>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
+
+  const startDate = draft.startDate ? new Date(draft.startDate) : null;
+  const endDate = draft.endDate ? new Date(draft.endDate) : null;
 
   useEffect(() => {
     setIsHydrated(true);
@@ -35,14 +37,10 @@ export default function BookingForm() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-
     setDraft({ [name]: value });
 
     try {
-      await BookingFormSchema.validateAt(name, {
-        ...draft,
-        [name]: value,
-      });
+      await BookingFormSchema.validateAt(name, { ...draft, [name]: value });
       setErrors((prev) => ({ ...prev, [name]: "" }));
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
@@ -51,21 +49,16 @@ export default function BookingForm() {
     }
   };
 
-  const handleDateChange = async (date: Date | null) => {
-    const value = date ? date.toISOString() : "";
-    setDraft({ date: value });
+  const handleRangeChange = (dates: [Date | null, Date | null]) => {
+    const [start, end] = dates;
 
-    try {
-      await BookingFormSchema.validateAt("date", {
-        ...draft,
-        date: value,
-      });
-      setErrors((prev) => ({ ...prev, date: "" }));
-    } catch (err) {
-      if (err instanceof Yup.ValidationError) {
-        setErrors((prev) => ({ ...prev, date: err.message }));
-      }
-    }
+    setDraft({
+      startDate: start ? start.toISOString() : null,
+      endDate: end ? end.toISOString() : null,
+    });
+
+    // Очищаем ошибки при выборе дат
+    setErrors((prev) => ({ ...prev, startDate: "", endDate: "" }));
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -76,15 +69,15 @@ export default function BookingForm() {
       setErrors({});
       setIsSubmitting(true);
 
-      await new Promise((r) => setTimeout(r, 300));
+      await new Promise((r) => setTimeout(r, 1000));
 
       toast.success("Booking successful!");
       clearDraft();
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
-        const newErrors: Partial<Record<keyof BookingDraft, string>> = {};
+        const newErrors: Record<string, string> = {};
         err.inner.forEach((e) => {
-          if (e.path) newErrors[e.path as keyof BookingDraft] = e.message;
+          if (e.path) newErrors[e.path] = e.message;
         });
         setErrors(newErrors);
       }
@@ -104,11 +97,7 @@ export default function BookingForm() {
 
       <form className={css.form} onSubmit={handleSubmit} noValidate>
         <div className={css.inputsWrapper}>
-          <label htmlFor="name" className={css.visuallyHidden}>
-            Name
-          </label>
           <input
-            id="name"
             name="name"
             placeholder="Name*"
             value={draft.name || ""}
@@ -117,11 +106,7 @@ export default function BookingForm() {
           />
           {errors.name && <span className={css.errorText}>{errors.name}</span>}
 
-          <label htmlFor="email" className={css.visuallyHidden}>
-            Email
-          </label>
           <input
-            id="email"
             name="email"
             placeholder="Email*"
             value={draft.email || ""}
@@ -134,23 +119,25 @@ export default function BookingForm() {
 
           <div className={css.datePickerContainer}>
             <DatePicker
-              selected={draft.date ? new Date(draft.date) : null}
-              onChange={handleDateChange}
+              selectsRange={true}
+              startDate={startDate}
+              endDate={endDate}
+              onChange={handleRangeChange}
               placeholderText="Booking date*"
               dateFormat="dd.MM.yyyy"
               minDate={new Date()}
-              className={`${css.input} ${errors.date ? css.error : ""}`}
+              className={`${css.input} ${errors.startDate || errors.endDate ? css.error : ""}`}
               calendarClassName={css.calendar}
               popperPlacement="bottom"
             />
           </div>
-          {errors.date && <span className={css.errorText}>{errors.date}</span>}
+          {(errors.startDate || errors.endDate) && (
+            <span className={css.errorText}>
+              {errors.startDate || errors.endDate}
+            </span>
+          )}
 
-          <label htmlFor="comment" className={css.visuallyHidden}>
-            Comment
-          </label>
           <textarea
-            id="comment"
             name="comment"
             placeholder="Comment"
             value={draft.comment || ""}

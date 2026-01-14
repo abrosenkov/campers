@@ -4,14 +4,16 @@ import { persist } from "zustand/middleware";
 export interface BookingDraft {
   name: string;
   email: string;
-  date: string;
+  startDate: string | null; 
+  endDate: string | null;
   comment: string;
 }
 
 const initialState: BookingDraft = {
   name: "",
   email: "",
-  date: "",
+  startDate: null,
+  endDate: null,
   comment: "",
 };
 
