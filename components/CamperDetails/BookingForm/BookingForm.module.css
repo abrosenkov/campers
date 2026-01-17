@@ -162,3 +162,10 @@
   color: #667085;
   font-weight: 500;
 }
+
+
+@media screen and (max-width: 375px) {
+  .formWrapper {
+    padding: 25px;
+  }
+}

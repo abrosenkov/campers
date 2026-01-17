@@ -27,3 +27,14 @@
   color: #101828;
   text-transform: capitalize;   
 }
+
+@media screen and (max-width: 375px) {
+  .badge {
+  gap: 4px;
+  padding: 8px 12px;
+}
+
+.text {
+  font-size: 14px;
+}
+}

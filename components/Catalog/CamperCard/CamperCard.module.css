@@ -126,3 +126,18 @@
   fill: #e44848;
 }
 
+@media screen and (max-width: 375px) {
+  .card {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .card {
+    padding: 15px;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 12px;
+  }
+}

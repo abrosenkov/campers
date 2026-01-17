@@ -44,3 +44,9 @@
   color: #101828;
   text-transform: capitalize;
 }
+
+@media screen and (max-width: 375px) {
+  .featuresWrapper {
+    padding: 25px;
+  }
+}

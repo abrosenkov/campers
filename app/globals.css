@@ -77,3 +77,12 @@ h6 {
   font-weight: 500;
   color: #fff;
 }
+
+@media screen and (max-width: 375px) {
+  .container {
+  width: 100%;
+  max-width: 375px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+}

@@ -50,3 +50,19 @@
 .booking {
     min-width: 641px;
 }
+
+@media screen and (max-width: 375px) {
+
+    .contentWrapper {
+        flex-direction: column;
+    }
+
+    .tabContent {
+        max-width: 335px;
+    }
+
+    .booking {
+        min-width: 100%;
+    }
+
+}

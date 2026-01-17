@@ -21,7 +21,7 @@
 .locationInput {
   width: 100%;
   padding: 18px 20px 18px 48px;
-  background-color: #F7F7F7;
+  background-color: #f7f7f7;
   border: 1px solid transparent;
   border-radius: 12px;
   font-weight: 400;
@@ -59,11 +59,11 @@
   cursor: pointer;
   transition: all 0.3s ease;
   gap: 8px;
-  user-select: none; 
+  user-select: none;
 }
 
 .itemActive {
-  border-color: #E44848;
+  border-color: #e44848;
 }
 
 .label {
@@ -89,7 +89,6 @@
 .inputWrapper:focus-within .inputIcon {
   fill: #101828;
 }
-
 
 .filterTitle {
   font-weight: 500;
@@ -159,14 +158,14 @@
   color: #101828;
 }
 
-.item:hover, .item:focus {
+.item:hover,
+.item:focus {
   border-color: #e44848;
 }
 
 /* .item:focus-within {
   border-color: #101828;
 } */
-
 
 .itemActive {
   border-color: #e44848;
@@ -175,4 +174,21 @@
 .searchBtn {
   padding: 16px 60px;
   align-self: flex-start;
+}
+@media screen and (max-width: 375px) {
+  .form {
+    width: 100%;
+  }
+
+  .item {
+    width: calc((100% - 24px) / 3);
+    height: 85px;
+    gap: 4px;
+  }
+
+  .item span {
+    font-weight: 500;
+    font-size: 16px;
+    color: #101828;
+  }
 }
