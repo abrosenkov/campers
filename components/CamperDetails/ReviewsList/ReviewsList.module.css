@@ -51,3 +51,10 @@
     line-height: 1.5;
     color: #475467;
 }
+
+@media screen and (max-width: 375px) {
+    .reviewText {
+    font-size: 14px;
+
+    }
+}
