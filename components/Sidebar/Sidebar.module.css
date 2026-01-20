@@ -1,7 +1,7 @@
 .form {
   display: flex;
   flex-direction: column;
-  width: 360px;
+  width: 100%;
   gap: 32px;
 }
 
@@ -46,20 +46,23 @@
   gap: 32px;
 }
 
+
 .item {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 112px;
-  height: 95px;
-  border: 1px solid rgba(16, 24, 40, 0.2);
+  width: calc((100% - 24px) / 3);
+  height: 85px;
+  border: 1px solid #dadde1;
   border-radius: 12px;
   background: transparent;
   cursor: pointer;
-  transition: all 0.3s ease;
-  gap: 8px;
+  transition: border-color 250ms ease-in-out;
+  gap: 4px;
   user-select: none;
+  outline: none;
+  text-align: center;
 }
 
 .itemActive {
@@ -116,6 +119,7 @@
 
 .categoriesGrid {
   display: flex;
+  justify-content: space-around;
   flex-wrap: wrap;
   gap: 8px 12px;
 }
@@ -133,22 +137,7 @@
   overflow: hidden;
 }
 
-.item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 112px;
-  height: 95px;
-  border: 1px solid #dadde1;
-  border-radius: 12px;
-  background: transparent;
-  cursor: pointer;
-  transition: border-color 0.3s ease;
-  gap: 8px;
-  text-align: center;
-  transition: border-color 250ms ease-in-out;
-}
+
 
 .item span {
   font-weight: 500;
@@ -175,20 +164,18 @@
   padding: 16px 60px;
   align-self: flex-start;
 }
-@media screen and (max-width: 375px) {
-  .form {
-    width: 100%;
-  }
 
+@media screen and (min-width: 768px) {
   .item {
-    width: calc((100% - 24px) / 3);
-    height: 85px;
-    gap: 4px;
+    width: 112px;
+    height: 95px;
+    gap: 8px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .form {
+      width: 360px;
   }
 
-  .item span {
-    font-weight: 500;
-    font-size: 16px;
-    color: #101828;
-  }
 }
