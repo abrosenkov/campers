@@ -12,7 +12,12 @@ import clsx from "clsx";
 type EquipmentState = Record<BooleanFilterKeys | "transmission", boolean>;
 type VehicleForm = "panelTruck" | "fullyIntegrated" | "alcove" | "";
 
-export default function Sidebar() {
+type SidebarProps = {
+  onSubmitDone?: () => void;
+  closeFilters?: () => void;
+};
+
+export default function Sidebar({ onSubmitDone, closeFilters }: SidebarProps) {
   const { fetchCampers, isLoading } = useCamperStore();
 
   const [location, setLocation] = useState("");
@@ -56,6 +61,8 @@ export default function Sidebar() {
       top: 0,
       behavior: "smooth",
     });
+
+    onSubmitDone?.();
   };
 
   return (
@@ -135,7 +142,9 @@ export default function Sidebar() {
                   checked={formType === type.id}
                   onClick={(e) => {
                     e.preventDefault();
-                    setFormType((prev) => (prev === type.id ? "" : (type.id as VehicleForm)));
+                    setFormType((prev) =>
+                      prev === type.id ? "" : (type.id as VehicleForm)
+                    );
                   }}
                   onChange={() => {}}
                 />
@@ -150,6 +159,7 @@ export default function Sidebar() {
       </div>
 
       <Button
+        onClick={closeFilters}
         aria-label="Search"
         className={css.searchBtn}
         type="submit"

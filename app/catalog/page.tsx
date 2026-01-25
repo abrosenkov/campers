@@ -2,6 +2,7 @@ import Catalog from "@/components/Catalog/Catalog";
 import css from "./page.module.css";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import { Metadata } from "next";
+import MobileFilters from "@/components/Catalog/MobileFilters/MobileFilters";
 
 export const metadata: Metadata = {
   title: "Catalog | TravelTrucks",
@@ -27,7 +28,7 @@ export default function CatalogPage() {
     <div className="container">
       <div className={css.catalogLayout}>
         <aside className={css.sidebar}>
-          <Sidebar />
+          <MobileFilters />
         </aside>
         <main className={css.content}>
           <Catalog />
